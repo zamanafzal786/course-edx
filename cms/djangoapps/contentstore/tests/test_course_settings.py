@@ -126,6 +126,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
 
         self.alter_field(url, details, 'enrollment_end', datetime.datetime(2012, 11, 15, 1, 30, tzinfo=utc))
         self.alter_field(url, details, 'short_description', "Short Description")
+        self.alter_field(url, details, 'info_label', "Info Label")
+        self.alter_field(url, details, 'info_text', "Info Text")
         self.alter_field(url, details, 'overview', "Overview")
         self.alter_field(url, details, 'intro_video', "intro_video")
         self.alter_field(url, details, 'effort', "effort")
@@ -143,6 +145,12 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
         self.compare_date_fields(details, encoded, context, 'enrollment_end')
         self.assertEqual(
             details['short_description'], encoded['short_description'], context + " short_description not =="
+        )
+        self.assertEqual(
+            details['info_label'], encoded['info_label'], context + " info_label not =="
+        )
+        self.assertEqual(
+            details['info_text'], encoded['info_text'], context + " info_text not =="
         )
         self.assertEqual(details['overview'], encoded['overview'], context + " overviews not ==")
         self.assertEqual(details['intro_video'], encoded.get('intro_video', None), context + " intro_video not ==")
@@ -257,6 +265,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
             self.assertContains(response, "Introducing Your Course")
             self.assertContains(response, "Course Card Image")
             self.assertContains(response, "Course Short Description")
+            self.assertContains(response, "Course Info Text ")
+            self.assertContains(response, "Course Info Label")
             self.assertNotContains(response, "Course Title")
             self.assertNotContains(response, "Course Subtitle")
             self.assertNotContains(response, "Course Duration")
@@ -275,6 +285,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
             'entrance_exam_minimum_score_pct': '60',
             'syllabus': 'none',
             'short_description': 'empty',
+            'info_label': 'empty',
+            'info_text': 'empty',
             'overview': '',
             'effort': '',
             'intro_video': ''
@@ -324,6 +336,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
             'entrance_exam_enabled': 'true',
             'syllabus': 'none',
             'short_description': 'empty',
+            'info_label': 'empty',
+            'info_text': 'empty',
             'overview': '',
             'effort': '',
             'intro_video': ''
@@ -347,6 +361,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
             'entrance_exam_minimum_score_pct': '',
             'syllabus': 'none',
             'short_description': 'empty',
+            'info_label': 'empty',
+            'info_text': 'empty',
             'overview': '',
             'effort': '',
             'intro_video': ''
@@ -369,6 +385,20 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
         with mock.patch.dict('django.conf.settings.FEATURES', {'EDITABLE_SHORT_DESCRIPTION': False}):
             response = self.client.get_html(settings_details_url)
             self.assertNotContains(response, "Course Short Description")
+
+    def test_editable_info_label_fetch(self):
+        settings_details_url = get_url(self.course.id)
+
+        with mock.patch.dict('django.conf.settings.FEATURES', {'EDITABLE_INFO_LABEL': False}):
+            response = self.client.get_html(settings_details_url)
+            self.assertNotContains(response, "Course Info Label")
+
+    def test_editable_info_text_fetch(self):
+        settings_details_url = get_url(self.course.id)
+
+        with mock.patch.dict('django.conf.settings.FEATURES', {'EDITABLE_INFO_TEXT': False}):
+            response = self.client.get_html(settings_details_url)
+            self.assertNotContains(response, "Course Info Text")
 
     def test_regular_site_fetch(self):
         settings_details_url = get_url(self.course.id)
@@ -393,6 +423,8 @@ class CourseDetailsViewTest(CourseTestCase, MilestonesTestCaseMixin):
             self.assertContains(response, "Course Duration")
             self.assertContains(response, "Course Description")
             self.assertContains(response, "Course Short Description")
+            self.assertContains(response, "Course Info Label")
+            self.assertContains(response, "Course Info Text")
             self.assertContains(response, "Course Overview")
             self.assertContains(response, "Course Introduction Video")
             self.assertContains(response, "Requirements")
