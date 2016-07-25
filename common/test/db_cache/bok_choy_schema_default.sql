@@ -1342,6 +1342,8 @@ CREATE TABLE `course_overviews_courseoverview` (
   `course_video_url` longtext,
   `effort` longtext,
   `short_description` longtext,
+  `info_label` longtext,
+  `info_text` longtext,
   `org` longtext NOT NULL,
   `self_paced` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)

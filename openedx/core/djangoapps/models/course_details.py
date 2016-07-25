@@ -23,6 +23,8 @@ ABOUT_ATTRIBUTES = [
     'duration',
     'description',
     'short_description',
+    'info_label',
+    'info_text',
     'overview',
     'effort',
     'entrance_exam_enabled',
@@ -52,6 +54,8 @@ class CourseDetails(object):
         self.duration = ""
         self.description = ""
         self.short_description = ""
+        self.info_label = ""
+        self.info_text = ""
         self.overview = ""  # html to render as the overview
         self.intro_video = None  # a video pointer
         self.effort = None  # hours/week
@@ -86,6 +90,7 @@ class CourseDetails(object):
             value = modulestore().get_item(usage_key).data
         except ItemNotFoundError:
             value = None
+        print "val here is",value
         return value
 
     @classmethod

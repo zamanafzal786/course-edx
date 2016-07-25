@@ -288,12 +288,67 @@ CMS.URL.UPLOAD_ASSET = '${upload_asset_url | n, js_escaped_string}'
             </li>
           </ol>
         </section>
-        % endif
+         % endif
+
+
+        <!--% if about_page_editable:-->
+         <hr class="divide" />
+
+
+        <section class="group-settings schedule">
+          <header>
+            <h2 class="title-2">${_('Course Additional Information')}</h2>
+            <span class="tip">${_('Provide useful additional information about your course')}</span>
+          </header>
+
+  <!--<button class="add_field_button action action-primary">Add More Fields</button>-->
+          <form name="content">
+          <ol class="list-input">
+             <input type="hidden" id="course-info-label" placeholder="" autocomplete="off" />
+
+            <li class="field-group field-group-course-start" id="course-start">
+              <div class="input_fields_wrap">
+              % if info_label_editable:
+              <div class="field date" id="field-course-info-label" style="margin-bottom: 20px">
+                <label for="course-info-label">${_("Information Label")}</label>
+                <input type="text" class="cor-info-label" id="course-info-label0" placeholder="" autocomplete="off" />
+
+                <!--<span class="tip tip-stacked">${_("Information Label")}</span>-->
+                <!--<span class="error-div">this iextr</span>-->
+              </div>
+              %endif
+            % if info_text_editable:
+              <div class="field date" id="field-course-info-text" style="margin-bottom: 20px">
+                <label for="course-info-text">${_("Information Text")}</label>
+                <input type="text" class="cor-info-text" id="course-info-text" placeholder="" autocomplete="off" />
+
+                <!--<span class="tip tip-stacked">${_("Information Text")}</span>-->
+                <!--<span class="error-div">.</span>-->
+              </div>
+              %endif
+                </div>
+            </li>
+          </ol>
+            </form>
+
+        </section>
+        <section class="group-settings basic">
+        <div class="note note-promotion note-promotion-courseURL has-actions" style="padding-top: 0px;">
+        <ul class="list-actions">
+              <li class="action-item">
+                <!--<button class="add_field_button action action-primary">Add More Fields</button>-->
+                <a class="add_field_button action action-primary">
+                    <span class="icon fa fa-plus icon-inline" aria-hidden="true"></span>Add More Fields</a>
+              </li>
+            </ul>
+          </div>
+          </section>
+        <!--% endif-->
 
         <hr class="divide" />
             <section class="group-settings marketing">
               <header>
-                <h2 class="title-2">${_("Introducing Your Course")}</h2>
+                <h2 class="title-2">${_("Introducinghhgh Your Course")}</h2>
                 <span class="tip">${_("Information for prospective students")}</span>
               </header>
               <ol class="list-input">

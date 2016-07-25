@@ -15,7 +15,7 @@ define([
     };
 
     describe('Settings/Main', function () {
-        var urlRoot = '/course/settings/org/DemoX/Demo_Course',
+        var urlRoot = '/course/settings/org/DemoX/Demo_Coursee',
             modelData = {
                 start_date: "2014-10-05T00:00:00Z",
                 end_date: "2014-11-05T20:00:00Z",
@@ -30,6 +30,8 @@ define([
                 duration: '',
                 description: '',
                 short_description : '',
+                info_label : '',
+                info_text : '',
                 overview : '',
                 intro_video : null,
                 effort : null,

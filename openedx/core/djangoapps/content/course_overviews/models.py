@@ -96,6 +96,8 @@ class CourseOverview(TimeStampedModel):
     # Catalog information
     catalog_visibility = TextField(null=True)
     short_description = TextField(null=True)
+    info_label = TextField(null=True)
+    info_text = TextField(null=True)
     course_video_url = TextField(null=True)
     effort = TextField(null=True)
     self_paced = BooleanField(default=False)
@@ -180,6 +182,8 @@ class CourseOverview(TimeStampedModel):
 
             catalog_visibility=course.catalog_visibility,
             short_description=CourseDetails.fetch_about_attribute(course.id, 'short_description'),
+            info_label=CourseDetails.fetch_about_attribute(course.id, 'info_label'),
+            info_text=CourseDetails.fetch_about_attribute(course.id, 'info_text'),
             effort=CourseDetails.fetch_about_attribute(course.id, 'effort'),
             course_video_url=CourseDetails.fetch_video_url(course.id),
             self_paced=course.self_paced,

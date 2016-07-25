@@ -101,7 +101,30 @@ from openedx.core.lib.courses import course_image_url
 
   })(this)
   </script>
+<script>
+  var array = $('.info_text_val').text().split(",");
+   $(".info_full_div").hide();
+   $(".info-text-cls").hide();
+//  alert("yes");
+  $.each(array,function(i){
+    if(parseInt(i) % 2 == 0)
+    {
+      c = i++
+      $(".info-label-cls").append("<li class='important-dates-item'><span class='icon fa fa-calendar' aria-hidden='true'></span>" +
+              "<span class='importants-dates-item-title'> "+ array[c] +"</span>" +
+              "<span class='important-dates-item-text final-date'>" + array[i] + '</span></li>');
 
+    }
+//    else{
+//      $(".info-label-cls").append("<li class='important-dates-item'><span class='icon fa fa-calendar' aria-hidden='true'></span>" +
+//              "<p class='importants-dates-item-title'>Info Text</p>" +
+//              "<span class='important-dates-item-text final-date'>" + array[i] + '</span></li>');
+//
+//    }
+//   alert(array[i]);
+});
+//  alue.split(",")[0]
+  </script>
   <script src="${static.url('js/course_info.js')}"></script>
 </%block>
 
@@ -254,6 +277,48 @@ from openedx.core.lib.courses import course_image_url
               <span class="important-dates-item-text">${course_price}</span>
             </li>
           %endif
+
+
+          <!--new section-->
+
+          % if get_course_about_section(request, course, "info_label") or course.info_label:
+          <div class="info-label-cls">
+            <li class="important-dates-item info_full_div">
+              <!--<div class="info_full_div">-->
+                <span class="icon fa fa-calendar" aria-hidden="true"></span>
+                <p class="importants-dates-item-title">${_("Info Label")}</p>
+
+                <span class="important-dates-item-text final-date info_text_val">
+                    % if get_course_about_section(request, course, "info_label"):
+                        ${get_course_about_section(request, course, "info_label")}
+                    % else:
+                        ${course.info_label()}
+                    % endif
+                </span>
+              <!--</div>-->
+            </li>
+            </div>
+            % endif
+
+          % if get_course_about_section(request, course, "info_text") or course.info_text:
+          <div class="info-text-cls">
+            <li class="important-dates-item">
+                <span class="icon fa fa-calendar" aria-hidden="true"></span>
+                <p class="important-dates-item-title">${_("Info Text")}</p>
+
+                <span class="important-dates-item-text final-date">
+                    % if get_course_about_section(request, course, "info_text"):
+                        ${get_course_about_section(request, course, "info_text")}
+                    % else:
+                        ${course.info_text()}
+                    % endif
+                </span>
+
+            </li>
+            </div>
+            % endif
+
+          <!--end new section-->
 
           % if pre_requisite_courses:
           <% prc_target = reverse('about_course', args=[unicode(pre_requisite_courses[0]['key'])]) %>

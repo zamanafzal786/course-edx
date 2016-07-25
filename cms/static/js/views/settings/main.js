@@ -34,6 +34,7 @@ var DetailsView = ValidatingView.extend({
         this.$el.find("#course-number").val(this.model.get('course_id'));
         this.$el.find("#course-name").val(this.model.get('run'));
         this.$el.find('.set-date').datepicker({ 'dateFormat': 'm/d/yy' });
+        // alert("i m here")
 
         // Avoid showing broken image on mistyped/nonexistent image
         this.$el.find('img').error(function() {
@@ -97,6 +98,8 @@ var DetailsView = ValidatingView.extend({
         this.$el.find('#' + this.fieldToSelectorMap.description).val(this.model.get('description'));
 
         this.$el.find('#' + this.fieldToSelectorMap['short_description']).val(this.model.get('short_description'));
+        this.$el.find('#' + this.fieldToSelectorMap['info_label']).val(this.model.get('info_label'));
+        this.$el.find('#' + this.fieldToSelectorMap['info_text']).val(this.model.get('info_text'));
 
         this.$el.find('.current-course-introduction-video iframe').attr('src', this.model.videosourceSample());
         this.$el.find('#' + this.fieldToSelectorMap['intro_video']).val(this.model.get('intro_video') || '');
@@ -154,6 +157,7 @@ var DetailsView = ValidatingView.extend({
 
         return this;
     },
+
     fieldToSelectorMap : {
         'language' : 'course-language',
         'start_date' : "course-start",
@@ -166,6 +170,8 @@ var DetailsView = ValidatingView.extend({
         'duration': 'course-duration',
         'description': 'course-description',
         'short_description' : 'course-short-description',
+        'info_label' : 'course-info-label',
+        'info_text' : 'course-info-text',
         'intro_video' : 'course-introduction-video',
         'effort' : "course-effort",
         'course_image_asset_path': 'course-image-url',
@@ -305,6 +311,8 @@ var DetailsView = ValidatingView.extend({
         case 'course-duration':
         case 'course-description':
         case 'course-short-description':
+        case 'course-info-label':
+        case 'course-info-text':
             this.setField(event);
             break;
         default: // Everything else is handled by datepickers and CodeMirror.

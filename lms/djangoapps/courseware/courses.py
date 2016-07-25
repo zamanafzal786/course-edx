@@ -199,7 +199,9 @@ def get_course_about_section(request, course, section_key):
         'effort',
         'end_date',
         'prerequisites',
-        'ocw_links'
+        'ocw_links',
+        'info_label',
+        'info_text',
     }
 
     if section_key in html_sections:
@@ -208,6 +210,9 @@ def get_course_about_section(request, course, section_key):
 
             # Use an empty cache
             field_data_cache = FieldDataCache([], course.id, request.user)
+            if section_key == 'info_label':
+                print "field data is",field_data_cache
+                print "loc data is",loc
             about_module = get_module(
                 request.user,
                 request,
@@ -230,6 +235,7 @@ def get_course_about_section(request, course, section_key):
                         u"Error rendering course=%s, section_key=%s",
                         course, section_key
                     )
+            print "htmlo of this section is",html
             return html
 
         except ItemNotFoundError:
