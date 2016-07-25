@@ -970,6 +970,7 @@ def settings_handler(request, course_key_string):
     credit_eligibility_enabled = settings.FEATURES.get('ENABLE_CREDIT_ELIGIBILITY', False)
     with modulestore().bulk_operations(course_key):
         course_module = get_course_and_check_access(course_key, request.user)
+        print "course_module12313",course_module
         if 'text/html' in request.META.get('HTTP_ACCEPT', '') and request.method == 'GET':
             upload_asset_url = reverse_course_url('assets_handler', course_key)
 
@@ -989,6 +990,8 @@ def settings_handler(request, course_key_string):
             about_page_editable = not marketing_site_enabled
             enrollment_end_editable = GlobalStaff().has_user(request.user) or not marketing_site_enabled
             short_description_editable = settings.FEATURES.get('EDITABLE_SHORT_DESCRIPTION', True)
+            info_label_editable = settings.FEATURES.get('EDITABLE_INFO_LABEL', True)
+            info_text_editable = settings.FEATURES.get('EDITABLE_INFO_TEXT', True)
             self_paced_enabled = SelfPacedConfiguration.current().enabled
 
             settings_context = {
@@ -1001,6 +1004,8 @@ def settings_handler(request, course_key_string):
                 'details_url': reverse_course_url('settings_handler', course_key),
                 'about_page_editable': about_page_editable,
                 'short_description_editable': short_description_editable,
+                'info_text_editable': info_text_editable,
+                'info_label_editable': info_label_editable,
                 'upload_asset_url': upload_asset_url,
                 'course_handler_url': reverse_course_url('course_handler', course_key),
                 'language_options': settings.ALL_LANGUAGES,
